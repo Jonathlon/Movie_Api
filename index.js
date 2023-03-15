@@ -11,6 +11,8 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 
 app.use(morgan('combined', {stream: accessLogStream}));
 
+app.use('/', express.static('public'));
+
 app.get('/', (req, res) => {
   res.send('Welcome to my Movie app!');
 });
@@ -77,9 +79,7 @@ let topMovies = [
 ];
 
 // GET requests
-app.get('/', (req, res) => {
-  res.send('Welcome to my Movie list!');
-});
+
 
 app.get('/documentation', (req, res) => {                  
   res.sendFile('public/documentation.html', { root: __dirname });
