@@ -78,6 +78,14 @@ let movies = [
   },
 ];
 
+
+// Middleware - Morgan function (data logging)
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
+    flags: "a",
+  });
+  
+  app.use(morgan("combined", { stream: accessLogStream }));
+
 //CREATE
 app.post("/users", (req, res) => {
   const newUser = req.body;
@@ -202,13 +210,6 @@ app.get("/movies/directors/:directorName", (req, res) => {
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
-
-// Middleware - Morgan function (data logging)
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
-  flags: "a",
-});
-
-app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use("/", express.static("public"));
 
