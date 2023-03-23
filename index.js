@@ -115,34 +115,34 @@ app.put("/users/:id", (req, res) => {
 });
 
 //CREATE
-app.post("/users/:id/:movieTitle", (req, res) => {
-  const { id, movieTitle } = req.params;
+app.post("/users/:id/:Title", (req, res) => {
+  const { id, Title } = req.params;
   const updatedUser = req.body;
 
   let user = users.find((user) => user.id == id);
 
   if (user) {
-    user.favoriteMovies.push(movieTitle);
-    res.status(200).send(`${movieTitle} has been added to user ${id}'s array`);
+    user.favoriteMovies.push(Title);
+    res.status(200).send(`${Title} has been added to user ${id}'s array`);
   } else {
     res.status(400).send("no such user");
   }
 });
 
 //DELETE
-app.delete("/users/:id/:movieTitle", (req, res) => {
-  const { id, movieTitle } = req.params;
+app.delete("/users/:id/:Title", (req, res) => {
+  const { id, Title } = req.params;
   const updatedUser = req.body;
 
   let user = users.find((user) => user.id == id);
 
   if (user) {
     user.favoriteMovies = user.favoriteMovies.filter(
-      (title) => title !== movieTitle
+      (title) => title !== Title
     );
     res
       .status(200)
-      .send(`${movieTitle} has been removed from user ${id}'s array`);
+      .send(`${Title} has been removed from user ${id}'s array`);
   } else {
     res.status(400).send("no such user");
   }
@@ -181,26 +181,26 @@ app.get("/movies/:title", (req, res) => {
 });
 
 //READ
-app.get("/movies/genre/:genreName", (req, res) => {
-  const { genreName } = req.params;
-  const genre = movies.find((movie) => movie.Genre.Name === genreName).Genre;
+app.get("/movies/Genre/:GenreName", (req, res) => {
+  const { GenreName } = req.params;
+  const Genre = movies.find((movie) => movie.Genre.Name === GenreName).Genre;
 
-  if (genre) {
-    res.status(200).json(genre);
+  if (Genre) {
+    res.status(200).json(Genre);
   } else {
     res.status(400).send("No such genre");
   }
 });
 
 //READ
-app.get("/movies/directors/:directorName", (req, res) => {
-  const { directorName } = req.params;
-  const director = movies.find(
-    (movie) => movie.Director.Name === directorName
+app.get("/movies/Directors/:DirectorName", (req, res) => {
+  const { DirectorName } = req.params;
+  const Director = movies.find(
+    (movie) => movie.Director.Name === DirectorName
   ).Director;
 
-  if (director) {
-    res.status(200).json(director);
+  if (Director) {
+    res.status(200).json(Director);
   } else {
     res.status(400).send("No such Director");
   }
