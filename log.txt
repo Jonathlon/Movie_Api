@@ -215,3 +215,5 @@ Timestamp: Thu Mar 09 2023 11:55:51 GMT+0000 (Greenwich Mean Time)
 ::1 - - [23/Mar/2023:15:43:16 +0000] "GET /documentation.html HTTP/1.1" 200 5320 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
 ::1 - - [23/Mar/2023:15:44:48 +0000] "GET /documentation.html HTTP/1.1" 200 5305 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
 ::1 - - [23/Mar/2023:15:47:15 +0000] "GET /documentation.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+::1 - - [24/Mar/2023:09:48:27 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+::1 - - [24/Mar/2023:09:48:35 +0000] "GET /documentation.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
