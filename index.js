@@ -121,49 +121,43 @@ app.post("/users", (req, res) => {
 
 //Update user info by unsername
 app.put("/users/:Username", (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
-      $set: {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday,
-      },
-    },
-    { new: true },
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      } else {
-        res.json(updatedUser);
-      }
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
     }
-  );
+  },
+  { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 //Allows users to add a movie to favorites
-app.post("/users/:Username/movies/:Title", (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $push: { FavoriteMovies: req.params.MovieID },
-    },
-    { new: true },
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      } else {
-        res.json(updatedUser);
-      }
+app.post('/users/:Username/movies/:Title', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
     }
-  );
+  });
 });
 
 //Allows users to remove a movie from favorites
-app.delete("/users/:id/:Title", (req, res) => {
+app.delete("/users/:Username/:Title", (req, res) => {
   const { id, Title } = req.params;
   const updatedUser = req.body;
 
