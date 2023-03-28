@@ -209,7 +209,7 @@ app.get("/users", (req, res) => {
 });
 
 // Get a user by username
-app.get('/users/:UserName', (req, res) => {
+app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.UserName })
     .then((user) => {
       res.json(user);
