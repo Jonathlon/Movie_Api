@@ -104,38 +104,24 @@
           <td>A JSON object holding data about a specific director</td>
         </tr>
 
-        <tr>
-          <td>Allows users to add a movie to the database</td>
-          <td>/users/:id/:Title</td>
-          <td>POST</td>
-          <td>
-            A JSON object holding data about the movie to add, structured like:
-            { "Title": "Description":}
-          </td>
-          <td>
-            A JSON object holding data about the movie added, structured like: {
-            "Title": "Description":}
-          </td>
-        </tr>
-
-        <tr>
+         <tr>
           <td>Allows new users to register</td>
           <td>/users</td>
           <td>POST</td>
           <td>
             A JSON object holding data about the user to add, structured like: {
-            "Username": "Password": "Email": "Date of birth": }
+            "Username": "Password": "Email": "Birthday": }
           </td>
           <td>
             A JSON object holding data about the user that was added, structured
-            like: { "Username" : "Password": "Email": "Date of Birth": "Favorite
+            like: { "Username" : "Password": "Email": "Birthday": "Favorite
             Movie" : }
           </td>
         </tr>
 
         <tr>
           <td>Allows users to update their user info</td>
-          <td>/users/:id</td>
+          <td>/users/:username</td>
           <td>PUT</td>
           <td>None</td>
           <td>A JSON object holding data about the updated user information</td>
@@ -143,7 +129,7 @@
 
         <tr>
           <td>Allows users to add a movie to their favorites</td>
-          <td>/users/:id/:Title</td>
+          <td>/users/:username/:Title</td>
           <td>POST</td>
           <td>None</td>
           <td>
@@ -154,7 +140,7 @@
 
         <tr>
           <td>Allows users to remove a movie from their favorites</td>
-          <td>/users/:id/:Title</td>
+          <td>/users/:username/:Title</td>
           <td>DELETE</td>
           <td>None</td>
           <td>

@@ -1,3 +1,14 @@
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect("mongodb://localhost:27017/cfDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const express = require("express"),
   app = express(),
   morgan = require("morgan"),
@@ -7,206 +18,16 @@ const express = require("express"),
   uuid = require("uuid");
 
 app.use(bodyParser.json());
-
-let users = [
-  {
-    id: 1,
-    name: "Jon",
-    favoriteMovies: [],
-  },
-  {
-    id: 2,
-    name: "Lucy",
-    favoriteMovies: ["Jurassic Park"],
-  },
-];
-
-let movies = [
-  {
-    Title: "The Dark Knight",
-    Description:
-      "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
-    Genre: {
-      Name: "Action",
-      Description:
-        "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats.",
-    },
-    Director: {
-      Name: "Christopher Nolan",
-      Bio: "Best known for his cerebral, often nonlinear, storytelling, acclaimed writer-director Christopher Nolan was born on July 30, 1970, in London, England. Over the course of 15 years of filmmaking, Nolan has gone from low-budget independent films to working on some of the biggest blockbusters ever made.",
-      Birth: "1970",
-    },
-    ImageURL:
-      "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/91ebheNmoUL._RI_.jpg",
-    Featured: false,
-  },
-  {
-    Title: "Jurassic Park",
-    Description:
-      "A pragmatic paleontologist touring an almost complete theme park on an island in Central America is tasked with protecting a couple of kids after a power failure causes the park's cloned dinosaurs to run loose.",
-    Genre: {
-      Name: "Adventure",
-      Description:
-        "An adventure film is a form of adventure fiction, and is a genre of film. Subgenres of adventure films include swashbuckler films, pirate films, and survival films. Adventure films may also be combined with other film genres such as action, comedy, drama, fantasy, science fiction, family, horror, war, or the medium of animation.",
-    },
-    Director: {
-      Name: "Steven Spielberg",
-      Bio: "One of the most influential personalities in the history of cinema, Steven Spielberg is Hollywood's best known director and one of the wealthiest filmmakers in the world. He has an extraordinary number of commercially successful and critically acclaimed credits to his name, either as a director, producer or writer since launching the summer blockbuster with Jaws (1975), and he has done more to define popular film-making since the mid-1970s than anyone else.",
-      Birth: "1946",
-    },
-    ImageURL:
-      "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_.jpg",
-    Featured: false,
-  },
-  {
-    Title: "The Departed",
-    Description:
-      "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in South Boston.",
-    Genre: {
-      Name: "Drama",
-      Description:
-        "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.",
-    },
-    Director: {
-      Name: "Martin Scorsese",
-      Bio: "Martin Charles Scorsese was born on November 17, 1942 in Queens, New York City, to Catherine Scorsese (née Cappa) and Charles Scorsese, who both worked in Manhattan's garment district, and whose families both came from Palermo, Sicily. He was raised in the neighborhood of Little Italy, which later provided the inspiration for several of his films. Scorsese earned a B.S. degree in film communications in 1964, followed by an M.A. in the same field in 1966 at New York University's School of Film. During this time, he made numerous prize-winning short films including The Big Shave (1967), and directed his first feature film, Who's That Knocking at My Door (1967).",
-      Birth: "1942",
-    },
-    ImageURL:
-      "https://www.comingsoon.net/wp-content/uploads/sites/3/2021/10/Departed-e1633146591556.jpg?w=640",
-    Featured: false,
-  },
-];
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware - Morgan function (data logging)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
-    flags: "a",
-  });
-  
-  app.use(morgan("combined", { stream: accessLogStream }));
-
-//CREATE
-app.post("/users", (req, res) => {
-  const newUser = req.body;
-
-  if (newUser.name) {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).json(newUser);
-  } else {
-    res.status(400).send("users need name");
-  }
+  flags: "a",
 });
 
-//UPDATE
-app.put("/users/:id", (req, res) => {
-  const { id } = req.params;
-  const updatedUser = req.body;
+app.use(morgan("combined", { stream: accessLogStream }));
 
-  let user = users.find((user) => user.id == id);
-
-  if (user) {
-    user.name = updatedUser.name;
-    res.status(200).json(user);
-  } else {
-    res.status(400).send("no such user");
-  }
-});
-
-//CREATE
-app.post("/users/:id/:Title", (req, res) => {
-  const { id, Title } = req.params;
-  const updatedUser = req.body;
-
-  let user = users.find((user) => user.id == id);
-
-  if (user) {
-    user.favoriteMovies.push(Title);
-    res.status(200).send(`${Title} has been added to user ${id}'s array`);
-  } else {
-    res.status(400).send("no such user");
-  }
-});
-
-//DELETE
-app.delete("/users/:id/:Title", (req, res) => {
-  const { id, Title } = req.params;
-  const updatedUser = req.body;
-
-  let user = users.find((user) => user.id == id);
-
-  if (user) {
-    user.favoriteMovies = user.favoriteMovies.filter(
-      (title) => title !== Title
-    );
-    res
-      .status(200)
-      .send(`${Title} has been removed from user ${id}'s array`);
-  } else {
-    res.status(400).send("no such user");
-  }
-});
-
-//DELETE
-app.delete("/users/:id", (req, res) => {
-  const { id } = req.params;
-  const updatedUser = req.body;
-
-  let user = users.find((user) => user.id == id);
-
-  if (user) {
-    users = users.filter((user) => user.id != id);
-    res.status(200).send(`user ${id} has been deleted`);
-  } else {
-    res.status(400).send("no such user");
-  }
-});
-
-//READ
-app.get("/movies", (req, res) => {
-  res.status(200).json(movies);
-});
-
-//READ
-app.get("/movies/:title", (req, res) => {
-  const { title } = req.params;
-  const movie = movies.find((movie) => movie.Title === title);
-
-  if (movie) {
-    res.status(200).json(movie);
-  } else {
-    res.status(400).send("No such movie");
-  }
-});
-
-//READ
-app.get("/movies/genres/:GenreName", (req, res) => {
-  const { GenreName } = req.params;
-  const Genre = movies.find((movie) => movie.Genre.Name === GenreName).Genre;
-
-  if (Genre) {
-    res.status(200).json(Genre);
-  } else {
-    res.status(400).send("No such genre");
-  }
-});
-
-//READ
-app.get("/movies/directors/:DirectorName", (req, res) => {
-  const { DirectorName } = req.params;
-  const Director = movies.find(
-    (movie) => movie.Director.Name === DirectorName
-  ).Director;
-
-  if (Director) {
-    res.status(200).json(Director);
-  } else {
-    res.status(400).send("No such Director");
-  }
-});
-
-// READ Documentation
+// Post URL
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
@@ -219,6 +40,186 @@ app.get("/", (req, res) => {
 
 app.get("/secreturl", (req, res) => {
   res.send("This is a secret url with super top-secret content.");
+});
+
+//Returns a list of all movies
+app.get('/movies', (req, res) => {
+  Movies.find()
+    .then((movies) => {
+      res.status(200).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('No such movie');
+    });
+}); 
+
+//Returns data about single movie by title
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('No such movie');
+    });
+});
+
+//Returns data about genre by genre name
+app.get('/movies/genres/:genreName', (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.genreName })
+    .then((movie) => {
+      res.json(movie.Genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('No Such Genre');
+    });
+});
+
+
+//Returns data about a director by name
+app.get('/movies/directors/:directorName', (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.directorName })
+    .then((movie) => {
+      res.json(movie.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('No such Director');
+    });
+}); 
+
+
+//Allows new users to register
+app.post("/users", (req, res) => {
+  Users.findOne({ Username: req.body.UserName })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.UserName + "already exists");
+      } else {
+        Users.create({
+          Username: req.body.UserName,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
+
+
+//Update user info by unsername
+app.put("/users/:Username", (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.UserName },
+    {
+      $set: {
+        Username: req.body.UserName,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      },
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
+});
+
+//Allows users to add a movie to favorites
+app.post("/users/:Username/movies/:Title", (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.UserName },
+    {
+      $push: { FavoriteMovies: req.params.MovieID },
+    },
+    { new: true },
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      } else {
+        res.json(updatedUser);
+      }
+    }
+  );
+});
+
+//Allows users to remove a movie from favorites
+app.delete("/users/:id/:Title", (req, res) => {
+  const { id, Title } = req.params;
+  const updatedUser = req.body;
+
+  let user = users.find((user) => user.id == id);
+
+  if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter(
+      (title) => title !== Title
+    );
+    res.status(200).send(`${Title} has been removed from user ${id}'s array`);
+  } else {
+    res.status(400).send("no such user");
+  }
+});
+
+
+// Delete a user by username
+app.delete("/users/:Username", (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.UserName })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.UserName + " was not found");
+      } else {
+        res.status(200).send(req.params.UserName + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+// Get all users
+app.get("/users", (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+// Get a user by username
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.UserName })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //Middleware error handler
