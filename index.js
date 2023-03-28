@@ -1,38 +1,36 @@
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-
 const Movies = Models.Movie;
 const Users = Models.User;
+const express = require("express");
+const app = express();
+const morgan = require("morgan");
+const  fs = require("fs");
+const  path = require("path");
+const  bodyParser = require("body-parser");
+const  uuid = require("uuid");
+
+
 
 mongoose.connect("mongodb://localhost:27017/cfDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const express = require("express"),
-  app = express(),
-  morgan = require("morgan"),
-  fs = require("fs"),
-  path = require("path"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Middleware - Morgan function (data logging)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("combined", { stream: accessLogStream }));
+app.use(express.static("public"));
 
 // Post URL
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
-
-app.use("/", express.static("public"));
 
 app.get("/", (req, res) => {
   res.send("Welcome to my Movie app!");
@@ -211,7 +209,7 @@ app.get("/users", (req, res) => {
 });
 
 // Get a user by username
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:UserName', (req, res) => {
   Users.findOne({ Username: req.params.UserName })
     .then((user) => {
       res.json(user);
