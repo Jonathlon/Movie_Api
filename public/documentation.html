@@ -145,12 +145,17 @@
           </td>
           <td>
             A JSON object holding data about the user that was added, structured
-            like: { "Username" : 
-                    "Password": 
-                    "Email": 
-                    "Birthday": 
-                    "Favorite Movie" : 
-                  }
+            like:   {
+              "_id": "64231d2e9692fddd9062d3cc",
+              "Username": "Newuser14",
+              "Password": "newpassord",
+              "Email": "new@email.com",
+              "Birthday": "1990-12-04T00:00:00.000Z",
+              "FavoriteMovies": [
+                
+              ],
+              "__v": 0
+            }
           </td>
         </tr>
 
@@ -159,36 +164,61 @@
           <td>/users/:Username</td>
           <td>PUT</td>
           <td>  
-            A JSON object holding data about the user that was added, structured
-            like: { "Username" : 
+                   { "Username" : 
                     "Password": 
                     "Email": 
                     "Birthday": 
                     "Favorite Movie" : 
                   }
           </td>
-          <td>A JSON object holding data about the updated user information</td>
+          <td>{
+            "_id": "641c5f8a3af3c91700f944a3",
+            "Password": "Newpassword12",
+            "Birthday": "1984-04-10T00:00:00.000Z",
+            "FavoriteMovies": [
+                "641c4ba73af3c91700f94499"
+            ],
+            "Username": "DK",
+            "Email": "Newemail@email.com"
+        }</td>
         </tr>
 
         <tr>
           <td>Allows users to add a movie to their favorites</td>
-          <td>/users/:Username/:Title</td>
+          <td>/users/:Username/movies/:MovieID</td>
           <td>POST</td>
-          <td>None</td>
+          <td>users/DK/movies/641c35be3af3c91700f94496</td>
           <td>
-            A JSON object holding data about the user and the movie that was
-            added
+            {
+              "_id": "641c5f8a3af3c91700f944a3",
+              "Password": "Newpassword12",
+              "Birthday": "1984-04-10T00:00:00.000Z",
+              "FavoriteMovies": [
+                  "641c4ba73af3c91700f94499",
+                  "641c35be3af3c91700f94496"
+              ],
+              "Username": "DK",
+              "Email": "Newemail@email.com"
+          }
           </td>
         </tr>
 
         <tr>
           <td>Allows users to remove a movie from their favorites</td>
-          <td>/users/:Username/:Title</td>
+          <td>/users/:Username/movies/:MovieID</td>
           <td>DELETE</td>
-          <td>None</td>
+          <td>users/DK/movies/641c35be3af3c91700f94496</td>
           <td>
-            A JSON object holding data about the user and the movie that was
-            removed
+            {
+              "_id": "641c5f8a3af3c91700f944a3",
+              "Password": "Newpassword12",
+              "Birthday": "1984-04-10T00:00:00.000Z",
+              "FavoriteMovies": [
+                  "641c4ba73af3c91700f94499"
+              ],
+              "Username": "DK",
+              "Email": "Newemail@email.com"
+          }
           </td>
         </tr>
 
@@ -196,10 +226,10 @@
           <td>Allows existing users to deregister</td>
           <td>/users/:Username</td>
           <td>DELETE</td>
-          <td>None</td>
+          <td>users/Test1</td>
           <td>
             A text message indicating whether the user has successfully
-            deregistered
+            deregistered - "Test1 was deleted."
           </td>
         </tr>
       </tbody>
