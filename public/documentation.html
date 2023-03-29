@@ -84,50 +84,68 @@
           <td>Returns data about single movie by title</td>
           <td>/movies/:title</td>
           <td>GET</td>
-          <td>/movies/The%20Dark%20Knight</td>
-          <td>{
-            "Genre": {
-                "Name": "Action",
-                "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats."
-            },
-            "Director": {
-                "Name": "Christopher Nolan",
-                "Bio": "Christopher Edward Nolan CBE (born 30 July 1970) is a British-American filmmaker. Known for his Hollywood blockbusters with complex storytelling, Nolan is considered a leading filmmaker of the 21st century. His films have grossed $5 billion worldwide.",
-                "Birth": "1970",
-                "Death": "NA"
-            },
-            "Actors": [],
-            "_id": "641c35be3af3c91700f94496",
-            "Title": "The Dark Knight",
-            "Description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
-            "ImagePath": "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/91ebheNmoUL._RI_.jpg",
-            "Featured": false
-        }</td>
+          <td>None</td>
+          <td>
+            <pre>
+              <code>
+{
+
+  "Genre": {
+       "Name": "Action",
+       "Description": "Action film is a film genre in w...."
+  },
+  "Director": {
+        "Name": "Christopher Nolan",
+        "Bio": "Christopher Edward Nolan CBE (born 30 July 1970) is a British-American filmmaker.....",
+        "Birth": "1970",
+        "Death": "NA"
+  },
+  "Actors": [],
+  "_id": "641c35be3af3c91700f94496",
+  "Title": "The Dark Knight",
+  "Description": "When the menace known as the Joker wreaks havoc .....",
+  "ImagePath": "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/91ebheNmoUL._RI_.jpg",
+  "Featured": false
+  }
+              </code>
+            </pre>
+           </td>
         </tr>
 
         <tr>
           <td>Returns data about a genre by title</td>
           <td>/movies/genres/:GenreName</td>
           <td>GET</td>
-          <td>/movies/genres/Action</td>
-          <td>{
-            "Name": "Action",
-            "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats."
-        }
-      </td>
+          <td>None</td>
+          <td>
+            <pre>
+              <code>
+  {
+    "Name": "Action",
+    "Description": "Action film is a film genre in wh...."
+  }
+              </code>
+            </pre>          
+          </td>
         </tr>
 
         <tr>
           <td>Returns data about a director by name</td>
           <td>/movies/directors/:DirectorName</td>
           <td>GET</td>
-          <td>movies/directors/Christopher%20Nolan</td>
-          <td>{
-            "Name": "Christopher Nolan",
-            "Bio": "Christopher Edward Nolan CBE (born 30 July 1970) is a British-American filmmaker. Known for his Hollywood blockbusters with complex storytelling, Nolan is considered a leading filmmaker of the 21st century. His films have grossed $5 billion worldwide.",
-            "Birth": "1970",
-            "Death": "NA"
-        }</td>
+          <td>None</td>
+          <td>
+            <pre>
+              <code>
+{
+   "Name": "Christopher Nolan",
+   "Bio": "Christopher Edward Nolan CBE (born 30 July 1970) is a....",
+   "Birth": "1970",
+   "Death": "NA"
+}
+              </code>
+            </pre>   
+          </td>
         </tr>
 
          <tr>
@@ -136,26 +154,34 @@
           <td>POST</td>
           <td>
             A JSON object holding data about the user that was added, structured
-            like: { "Username" : 
-                    "Password": 
-                    "Email": 
-                    "Birthday": 
-                    "Favorite Movie" : 
-                  }
-          </td>
+            like: 
+            <pre>
+              <code>
+{ 
+  "Username" : 
+  "Password": 
+  "Email": 
+  "Birthday": 
+  "Favorite Movie"
+}
+              </code>
+            </pre>
+           </td>
+
           <td>
-            A JSON object holding data about the user that was added, structured
-            like:   {
-              "_id": "64231d2e9692fddd9062d3cc",
-              "Username": "Newuser14",
-              "Password": "newpassord",
-              "Email": "new@email.com",
-              "Birthday": "1990-12-04T00:00:00.000Z",
-              "FavoriteMovies": [
-                
-              ],
-              "__v": 0
-            }
+           <pre>
+              <code>
+{
+   "_id": "64231d2e9692fddd9062d3cc",
+   "Username": "Newuser14",
+   "Password": "newpassord",
+   "Email": "new@email.com",
+   "Birthday": "1990-12-04T00:00:00.000Z",
+   "FavoriteMovies": [],
+   "__v": 0
+}
+              </code>
+            </pre>
           </td>
         </tr>
 
@@ -163,43 +189,62 @@
           <td>Allows users to update their user info</td>
           <td>/users/:Username</td>
           <td>PUT</td>
-          <td>  
-                   { "Username" : 
-                    "Password": 
-                    "Email": 
-                    "Birthday": 
-                    "Favorite Movie" : 
-                  }
-          </td>
-          <td>{
-            "_id": "641c5f8a3af3c91700f944a3",
-            "Password": "Newpassword12",
-            "Birthday": "1984-04-10T00:00:00.000Z",
-            "FavoriteMovies": [
-                "641c4ba73af3c91700f94499"
-            ],
-            "Username": "DK",
-            "Email": "Newemail@email.com"
-        }</td>
+          <td>
+            A JSON object holding data about the user that was added, structured
+            like: 
+            <pre>
+              <code>
+{ 
+  "Username" : 
+  "Password": 
+  "Email": 
+  "Birthday": 
+  "Favorite Movie"
+}
+              </code>
+            </pre>
+           </td>
+
+          <td>
+            <pre>
+              <code>
+{
+  "_id": "641c5f8a3af3c91700f944a3",
+  "Password": "Newpassword12",
+  "Birthday": "1984-04-10T00:00:00.000Z",
+  "FavoriteMovies": [
+      "641c4ba73af3c91700f94499"
+     ],
+  "Username": "DK",
+  "Email": "Newemail@email.com"
+}
+              </code>
+            </pre>
+            
+         
+      </td>
         </tr>
 
         <tr>
           <td>Allows users to add a movie to their favorites</td>
           <td>/users/:Username/movies/:MovieID</td>
           <td>POST</td>
-          <td>users/DK/movies/641c35be3af3c91700f94496</td>
+          <td>None</td>
           <td>
-            {
-              "_id": "641c5f8a3af3c91700f944a3",
-              "Password": "Newpassword12",
-              "Birthday": "1984-04-10T00:00:00.000Z",
-              "FavoriteMovies": [
-                  "641c4ba73af3c91700f94499",
-                  "641c35be3af3c91700f94496"
-              ],
-              "Username": "DK",
-              "Email": "Newemail@email.com"
-          }
+            <pre>
+              <code>
+{
+  "_id": "641c5f8a3af3c91700f944a3",
+  "Password": "Newpassword12",
+  "Birthday": "1984-04-10T00:00:00.000Z",
+  "FavoriteMovies": [
+     "641c4ba73af3c91700f94499", "641c35be3af3c91700f94496" 
+        ],
+  "Username": "DK",
+  "Email": "Newemail@email.com"
+}
+              </code>
+            </pre> 
           </td>
         </tr>
 
@@ -207,18 +252,22 @@
           <td>Allows users to remove a movie from their favorites</td>
           <td>/users/:Username/movies/:MovieID</td>
           <td>DELETE</td>
-          <td>users/DK/movies/641c35be3af3c91700f94496</td>
+          <td>None</td>
           <td>
-            {
-              "_id": "641c5f8a3af3c91700f944a3",
-              "Password": "Newpassword12",
-              "Birthday": "1984-04-10T00:00:00.000Z",
-              "FavoriteMovies": [
-                  "641c4ba73af3c91700f94499"
-              ],
-              "Username": "DK",
-              "Email": "Newemail@email.com"
-          }
+            <pre>
+              <code>
+{
+  "_id": "641c5f8a3af3c91700f944a3",
+  "Password": "Newpassword12",
+  "Birthday": "1984-04-10T00:00:00.000Z",
+  "FavoriteMovies": [
+     "641c4ba73af3c91700f94499"
+        ],
+  "Username": "DK",
+  "Email": "Newemail@email.com"
+}
+              </code>
+            </pre>           
           </td>
         </tr>
 
@@ -226,7 +275,7 @@
           <td>Allows existing users to deregister</td>
           <td>/users/:Username</td>
           <td>DELETE</td>
-          <td>users/Test1</td>
+          <td>None</td>
           <td>
             A text message indicating whether the user has successfully
             deregistered - "Test1 was deleted."
