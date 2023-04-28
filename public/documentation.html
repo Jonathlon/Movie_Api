@@ -60,6 +60,7 @@
           <th>HTTP Method</th>
           <th>Request Body Data Format</th>
           <th>Response Body Data Format</th>
+          <th>Authentication</th>
         </tr>
       </thead>
 
@@ -70,6 +71,7 @@
           <td>None</td>
           <td>Allows users to login with username and password</td>
           <td>Welcome to my Movie app!</td>
+          <td>None</td>
         </tr>
 
         <tr>
@@ -78,6 +80,7 @@
           <td>GET</td>
           <td>None</td>
           <td>An array of JSON objects holding data about all movies</td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -110,6 +113,7 @@
               </code>
             </pre>
            </td>
+           <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -127,6 +131,7 @@
               </code>
             </pre>          
           </td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -146,6 +151,7 @@
               </code>
             </pre>   
           </td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
          <tr>
@@ -182,6 +188,7 @@
               </code>
             </pre>
           </td>
+          <td>Basic HTTP Authentication</td>
         </tr>
 
         <tr>
@@ -202,7 +209,7 @@
               </code>
             </pre>
            </td>
-
+         
           <td>
             <pre>
               <code>
@@ -217,10 +224,9 @@
   "Email": "Newemail@email.com"
 }
               </code>
-            </pre>
-            
-         
-      </td>
+            </pre>          
+          </td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -244,6 +250,7 @@
               </code>
             </pre> 
           </td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -267,6 +274,7 @@
               </code>
             </pre>           
           </td>
+          <td>Bearer token (JWT)</td>
         </tr>
 
         <tr>
@@ -278,6 +286,27 @@
             A text message indicating whether the user has successfully
             deregistered - "Test1 was deleted."
           </td>
+          <td>Bearer token (JWT)</td>
+        </tr>
+
+        <tr>
+          <td>Allows existing users to login</td>
+          <td>/login</td>
+          <td>POST</td>
+          <td>
+            <pre>
+              <code>
+{ 
+  "Username" : 
+  "Password": 
+}
+              </code>
+            </pre>                      
+          </td>
+          <td>
+            User can be taken to requst page
+          </td>
+          <td>Bearer token (JWT)</td>
         </tr>
       </tbody>
     </table>
