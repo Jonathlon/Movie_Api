@@ -66,12 +66,39 @@
 
       <tbody>
         <tr>
-          <td>/</td>
-          <td>POST</td>
-          <td>None</td>
           <td>Allows users to login with username and password</td>
-          <td>Welcome to my Movie app!</td>
-          <td>None</td>
+          <td>/login</td>
+          <td>POST</td>
+          <td>
+            <pre>
+              <code>
+{ 
+  "Username": "Jonathlon1",
+  "Password": "Password1"
+}
+              </code>
+            </pre>  
+          </td>
+         
+          <td>
+            <pre>
+              <code>
+{
+  "user": {
+  "_id": "64492eb46c90bc3d52e5bb12",
+  "Username": "Jonathlon1",
+  "Password": "Password1",
+  "Email": "jonathlon@gmail.com",
+  "Birthday": "1984-04-13T23:00:00.000Z",
+  "FavoriteMovies": [],
+    "__v": 0
+      },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6I..."
+ }
+              </code>
+            </pre>
+          </td>
+          <td>Basic HTTP Authentication</td>
         </tr>
 
         <tr>
@@ -188,7 +215,7 @@
               </code>
             </pre>
           </td>
-          <td>Basic HTTP Authentication</td>
+          <td>None</td>
         </tr>
 
         <tr>
@@ -289,25 +316,7 @@
           <td>Bearer token (JWT)</td>
         </tr>
 
-        <tr>
-          <td>Allows existing users to login</td>
-          <td>/login</td>
-          <td>POST</td>
-          <td>
-            <pre>
-              <code>
-{ 
-  "Username" : 
-  "Password": 
-}
-              </code>
-            </pre>                      
-          </td>
-          <td>
-            User can be taken to requst page
-          </td>
-          <td>Bearer token (JWT)</td>
-        </tr>
+  
       </tbody>
     </table>
   </body>
