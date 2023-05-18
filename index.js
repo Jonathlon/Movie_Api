@@ -13,10 +13,20 @@ const { check, validationResult } = require ('express-validator');
 
 
 
-mongoose.connect("mongodb://localhost:27017/cfDB", {
+// mongoose.connect("mongodb://localhost:27017/cfDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+
+
+
 
 // Middleware - Morgan function (data logging)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
