@@ -74,16 +74,20 @@ app.get("/secreturl", (req, res) => {
 });
 
 //Returns a list of all movies
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(200).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("No such movie");
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(200).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("No such movie");
+      });
+  }
+);
 
 //Returns data about single movie by title
 app.get(
