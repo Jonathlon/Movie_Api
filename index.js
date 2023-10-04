@@ -39,6 +39,7 @@ let allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://jonathlonmyflix.netlify.app",
+  "https://jonathlon.github.io",
 ];
 
 app.use(
